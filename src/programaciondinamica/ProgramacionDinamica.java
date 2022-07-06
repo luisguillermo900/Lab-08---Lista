@@ -35,7 +35,7 @@ public class ProgramacionDinamica {
 					int top= paquete.pop();//SE RETIRA UN PAQUETE DEL TAMAÑO MAYOR
 					resultado--;
 					return minPaquetes(peso+top, paquetes,paquete,posicion-1,resultado);//BUSCAMOS EL MIN CON UN PESO+TOP Y 
-																						//DISMINUIMOS EL POS EN 1
+					//DISMINUIMOS EL POS EN 1
 				}
 			}
 		}
