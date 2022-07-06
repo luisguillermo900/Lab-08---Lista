@@ -5,7 +5,7 @@ public class TestPD {
 	public static ProgramacionDinamica pd;	
 	public static void main(String[] args) {
 		
-		System.out.println("Pruebas de la estrategia de Programación Dinámica");
+		System.out.println("Pruebas de la estrategia de Programación Dinámica");	
 		System.out.println("****************************************");
 		prueba1();
 		prueba2();
@@ -20,13 +20,13 @@ public class TestPD {
 	//	Input:
 	//	12
 	//	{1 , 2 , 5}
-	//	Output:	
+	//	Output:		
 	//	3
 	private static void prueba1() {
 		int k=12;	
 		int n[]= {1, 2, 5};	
 		pd = new ProgramacionDinamica();
-		int p1 = pd.fuerza(k,n);
+		int p1 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 1: "+p1);
 	}
 	
@@ -40,7 +40,7 @@ public class TestPD {
 		int k=10;	
 		int n[]= {1, 3, 4};	
 		pd = new ProgramacionDinamica();
-		int p2 = pd.fuerza(k,n);
+		int p2 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 2: "+p2);
 	}
 	
@@ -54,7 +54,7 @@ public class TestPD {
 		int k=6;	
 		int n[]= {1, 3, 4};	
 		pd = new ProgramacionDinamica();
-		int p3 = pd.fuerza(k,n);
+		int p3 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 3: "+p3);
 	}
 	
@@ -68,7 +68,7 @@ public class TestPD {
 		int k=18;	
 		int n[]= {1, 3, 5, 7};	
 		pd = new ProgramacionDinamica();
-		int p4 = pd.fuerza(k,n);
+		int p4 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 4: "+p4);
 	}
 	
@@ -82,7 +82,7 @@ public class TestPD {
 		int k=360;	
 		int n[]= { 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 };	
 		pd = new ProgramacionDinamica();
-		int p5 = pd.fuerza(k,n);
+		int p5 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 5: "+p5);
 	}
 	
@@ -96,7 +96,7 @@ public class TestPD {
 		int k=360;	
 		int n[]= {1 , 2 , 5 , 7 , 11 , 13 };	
 		pd = new ProgramacionDinamica();
-		int p6 = pd.fuerza(k,n);
+		int p6 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 6: "+p6);
 	}
 
@@ -110,7 +110,7 @@ public class TestPD {
 		int k=1360;	
 		int n[]= {1 , 2 , 5 , 7 , 11 , 13 };	
 		pd = new ProgramacionDinamica();
-		int p7 = pd.fuerza(k,n);
+		int p7 = pd.fuerzaPD(k,n);
 		System.out.println("Prueba 7: "+p7);
 	}
 
