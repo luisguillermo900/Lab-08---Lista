@@ -1,0 +1,96 @@
+package fuerzabruta;
+import java.util.ArrayList;
+
+public class FuerzaBruta {
+		
+	/*
+	 * PRIMERA SOLUCIÓN
+	 * ESTE MÉTODO NOS PERMITE RESOLVER EL PROBLEMA PLANTEADO CON LA		
+	 * ESTRATEGIA DE FUERZA BRUTA. ESTE PROBLEMA CONSISTE EN SABER LA 
+	 * CANTIDAD MÍNIMA DE PAQUETES QUE LA VENDEDORA LE DARÁ A MARTA DE ACUERDO 
+	 * A LOS K KILOS SOLICITADOS DE ACUERDO A LOS PAQUETES (INT[] N) DISPONIBLES. 
+	 */	
+	public int fuerza(int k,int n[]) {	
+		int suma = 0;//ESTA VARIABLE NOS SIRVE PARA HALLAR LA SUMA DE N[] CON "listaAux". 	
+		int aux=0;	//ESTA VARIABLE NOS SIRVE PARA GUARDAR EL VALOR QUE QUEREMOS SUMAR DE N[]
+		int count = 1; //ESTA VARIABLE NOS SIRVE PARA HALLAR LA CANTIDAD MÍNIMA DE PAQUETES 
+		ArrayList<Integer> listaAux = new ArrayList<Integer>(); //SE CREA UN ARRAYLIST PARA GUARDAR CADA VALOR SUMADO NO REPETIDO
+		for(int i = 0; i < n.length; i++) {		
+			listaAux.add(n[i]);	// AGREGA LOS VALORES DE N[] AL ARRAYLIST "listaAux"		
+			if(n[i] == k) { // COMPARA CADA VALOR DE N[] SI ES IGUAL A MAX
+				return 1; // SI ES IGUAL NOS DEVUELVE UNO COMO LA CANTIDAD MÍNIMA DE PAQUETES
+			}
+		}//FIN FOR	
+		int cantidadElementosArrayList = 0;	// NOS SIRVE PARA HALLAR EL NUEVO TAMAÑO DEL ARRAYLIST CADA VES QUE WHILE DEVUELVE FALSE
+		while(listaAux.contains(k) != true) { // COMPARA SI EN EL ARRAYLIST ESTÁ EL VALOR MÁXIMO. SI ES ASÍ SALE DEL WHILE
+			 cantidadElementosArrayList = listaAux.size();// CADA VEZ QUE ENTRA A WHILE SE ACTUALIZA EL TAMAÑO DEL ARRAYLIST
+			 count++;// AUMENTA EN UNO CADA VEZ QUE SE ACTUALIZA EL TAMAÑO DEL ARRAYLIST. AUMENTA EN UNO LA CANTIDAD MÍNIMA DE PAQUETES
+			for (int j = 0; j < n.length; j++) {
+				aux = n[j];	// GUARDA EL VALOR DE N[] PARA LUEGO SUMARLO CON LOS DEMÁS VALORES DEL ARRAYLIST "listaAux"
+				for(int z = 0; z < cantidadElementosArrayList; z++) {// 
+					suma = aux+listaAux.get(z); // ACÁ SE LOGRA LA SUMA DE CADA VALOR DE N[] CON CADA VALOR QUE ALMACENA EL ARRALIST
+					if(listaAux.contains(suma) != true) {// SE REVISA SI EL ELEMENTO SUMADO ESTÁ EN EL ARRAYLIST. 
+														// SI ES ASÍ, NO LO AGREGA AL ARRAYLIST
+						listaAux.add(suma);				// SI NO ESTÁ, ENTONCES LO AGREGA
+					}
+				}
+			}//FIN FOR				
+		}//FIN WHILE	
+		return count; // DEVUELVE LA CANTIDAD MÍNIMA DE PAQUETES 	
+	}//FIN MÉTODO FUERZA
+	
+	/*
+	 * SEGUNDA SOLUCIÓN
+	 * ESTE MÉTODO NOS PERMITE RESOLVER EL PROBLEMA PLANTEADO CON LA
+	 * ESTRATEGIA DE FUERZA BRUTA. LA DIFERENCIA CON EL ANTERIOR MÉTODO ES QUE ESTE MÉTODO NOS DA TODAS LAS 
+	 * SOLUCIONES POSIBLES HASTA ENCONTRAR LA CANTIDAD DE K KILOS SOLICITADOS DE ACUERDO A LOS PAQUETES 
+	 * (INT[] N) DISPONIBLES. LA SOLUCIÓN SE DA CONTANDO LA CANTIDAD DE FILAS QUE HAY HASTA ENCONTRAR LOS K
+	 * KILOS SOLICITADOS DE ACUERDO A LOS PAQUETES.	
+	 */
+	public ArrayList<ArrayList<Integer>> fuerza2(int k, int[] n) { //EL MÉTODO DEVUELVE UN ARRAYLIST DE ARRAYLIST
+		int suma = 0;//ESTA VARIBALE NOS AYUDA A SUMAR LOS VALORES DE CADA FILA CON LA PRIMERA FILA, ES DECIR CON "N[]"
+		int aux=0;//ESTA VARIABLE SIRVE PARA ALMACENAR LOS VALORES DE LA PRIMERA FILA PARA LUEGO SUMARLOS CON LOS DEMÁS VALORES
+		ArrayList<Integer> listaAux = new ArrayList<Integer>();//EN ESTE ARRAYLIST NOS VA A AYUDAR A ALMACENAR LOS VALORES DE "N[]"
+		ArrayList<ArrayList<Integer>> listaP = new ArrayList<>();//EN ESTE ARRAYLIST NOS AYUDA A CREAR OBJETOS DENTRO DEL ARRAYLIST	
+		for(int i = 0; i < n.length; i++) {		
+			listaAux.add(n[i]);//AGREGA CADA VALOR DE "N[]" A "listaAux"		
+		}		
+		listaP.add(listaAux);//AGREGA EL ARRAYLIST "listaAux" A "listaP"	
+		int i = 0;
+		while(true) {//SE DA UN BUCLE INFINITO HASTA ENCONTRAR LOS K KILOS SOLICITADOS DE ACUERDO A LOS PAQUETES
+			int co1 = 0;
+			listaP.add(new ArrayList<Integer>());//CREA UN NUEVO OBJETO CADA VEZ QUE ENTRE A WHILE
+			for (int j = 0; j < listaP.get(i).size(); j++) {		
+				if(co1 < listaP.get(0).size()) {
+				aux = listaP.get(0).get(co1);//NOS AYUDA A ALMACENAR CADA VALOR DE LA FILA 0 A LA VARIABLE "aux"
+					co1++;
+				}	
+				for(int z = 0; z < listaP.get(i).size(); z++) {
+					suma = aux+listaP.get(i).get(z);//LA VARIABLE "suma" NOS AYUDA A SUMAR LOS VALORES DE LA PRIMERA FILA CON LAS DEMÁS FILAS
+					int num = buscar(listaP, suma);//ESTE MÉTODO NOS AYUDA A VER SI EL VALOR SUMADO ESTÁ EN EL ARRAYLIST
+					if( (num == -1) && (num != k)) {//SI NO ESTÁ EN EL ARRAYLIST, ENTONCES LO AGREGA AL ARRAYLIST BIDIMENSIONAL			
+						listaP.get(i+1).add(suma);
+					}else if(num == k) {//SI EL VALOR ENCONTRADO ES IGUAL A LOS K KILOS SOLICITADOS, NOS DEVUELVE LA LISTA BIDIMENSIONAL	 
+						return listaP;//NOS SEVUELVE LA LISTA ARRAYLIST BIDIMENSIONAL
+					}
+				}		
+			}//FIN FOR
+			i++;
+		}
+	}//FIN MÉTODO FUERZA2		
+	
+	/*
+	 * COMPLEMENTO DE LA SEGUNDA SOLUCIÓN
+	 * MÉTODO QUE NOS AYUDA A BUSCAR EL VALOR A BUSCAR EN UN ARRAYLIST BIDIMENSIONAL
+	 * SI EL MÉTODO ENCUENTRA EL VALOR BUSCADO, ENTONCES DEVUELVE EL MISMO VALOR. DE LO CONTRARIO DEVUELVE UN -1
+	 * INDICANDO QUE NO ENCONTRÓ EL VALOR.
+	 */
+	private int buscar (ArrayList<ArrayList<Integer>> listaP, int num) {
+		for (int i = 0; i < listaP.size(); i++) {
+			if(listaP.get(i).contains(num)) {
+				return num;
+			}
+		}
+		return -1;
+	}//FIN MÉTODO BUSCAR
+}
